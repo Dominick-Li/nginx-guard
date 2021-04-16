@@ -36,13 +36,18 @@ public class IpFromUtils {
             JSONObject data = (JSONObject) jsData.get(0);//位置
             return (String) data.get("location");
         } catch (IOException e) {
-            return "读取失败";
+            log.error("getAddressByIp error, ip={},msg={}",ip,e);
+            return  null;
         }
     }
 
 
     public static boolean isChina(String ip) {
         String address = getAddressByIp(ip);
+        if(address==null){
+            //获取Ip异常的情况
+            return true;
+        }
         boolean china = false;
         for (String privince : privinces) {
             if (address.startsWith(privince)) {
