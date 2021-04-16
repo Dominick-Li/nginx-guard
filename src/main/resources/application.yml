@@ -1,0 +1,18 @@
+server:
+  port: 9988
+
+nginx:
+  #恶意攻击的内容
+  matcher_list: mstshash=Administr,\x16\x03\x01\x00{
+  #工作空间
+  workspace: /usr/local/nginx/
+  #启动脚本
+  sbin: ${nginx.workspace}sbin/nginx
+  #日志文件
+  log: ${nginx.workspace}logs/access.log
+  #黑名单IP存储文件
+  blackListIp: ${nginx.workspace}conf/blackListIp.conf
+  #监控nginx启动的端口
+  pingPort: http://127.0.0.1:38888
+
+
